@@ -24,6 +24,16 @@ class GameScene: SKScene {
         spaceShip.physicsBody = SKPhysicsBody(texture: spaceShip.texture!, size: spaceShip.size)
         spaceShip.physicsBody?.isDynamic = false
         addChild(spaceShip)
+        
+        let asteroidCreate = SKAction.run {
+            let asteroid = self.createAsteroid()
+            self.addChild(asteroid)
+        }
+        let asteroidCreateDelay = SKAction.wait(forDuration: 1.0, withRange: 0.5)
+        let asteroidSeqAction = SKAction.sequence([asteroidCreate, asteroidCreateDelay])
+        let asteroidCreateRepeat = SKAction.repeatForever(asteroidSeqAction)
+        
+        run(asteroidCreateRepeat)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -31,14 +41,27 @@ class GameScene: SKScene {
             let touchLocation = touch.location(in: self)
             print(touchLocation)
             
-            let moveAction = SKAction.move(to: touchLocation, duration: 0.5)
+            let distance = distanceCalc(a: spaceShip.position, b: touchLocation)
+            let speed: CGFloat = 500
+            let time = timeTravelInterval(distance: distance, speed: speed)
+            
+            let moveAction = SKAction.move(to: touchLocation, duration: time)
             spaceShip.run(moveAction)
         }
     }
     
+    func timeTravelInterval(distance: CGFloat, speed: CGFloat) -> TimeInterval {
+        let time = distance/speed
+        return TimeInterval(time)
+    }
+    
+    func distanceCalc(a: CGPoint, b: CGPoint) -> CGFloat {
+        return sqrt((b.x - a.x)*(b.x - a.x) + (b.y - a.y)*(b.y - a.y))
+    }
+    
     func createAsteroid() -> SKSpriteNode {
         let asteroid = SKSpriteNode(imageNamed: "asteroid")
-        let asteroidSize = Double.random(in: 30...50)
+        let asteroidSize = Double.random(in: 30...150)
         asteroid.size = CGSize(width: asteroidSize, height: asteroidSize)
         
         asteroid.position.x = Double.random(in: -1...1)*((frame.size.width/2)-asteroid.size.width)
@@ -50,7 +73,7 @@ class GameScene: SKScene {
     }
     
     override func update(_ currentTime: TimeInterval) {
-        let asteroid = createAsteroid()
-        addChild(asteroid)
+//        let asteroid = createAsteroid()
+//        addChild(asteroid)
     }
 }
