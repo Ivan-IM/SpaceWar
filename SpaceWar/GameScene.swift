@@ -18,6 +18,37 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var scoreLabel: SKLabelNode!
     var background: SKSpriteNode!
     var asteroidLayer: SKNode!
+    var gameIsPause: Bool = false
+    
+    func onPauseGame() {
+        gameIsPause = true
+        self.asteroidLayer.isPaused = true
+        physicsWorld.speed = 0
+    }
+    
+    func offPauseGame() {
+        gameIsPause = false
+        self.asteroidLayer.isPaused = false
+        physicsWorld.speed = 1
+    }
+    
+    func resetGame() {
+        self.score = 0
+        self.scoreLabel.text = "Score: \(self.score)"
+        
+        gameIsPause = false
+        self.asteroidLayer.isPaused = false
+        physicsWorld.speed = 1
+    }
+    
+    func pauseButton(sender: AnyObject) {
+        if !gameIsPause {
+            onPauseGame()
+        }
+        else {
+            offPauseGame()
+        }
+    }
     
     override func didMove(to view: SKView) {
         
@@ -72,23 +103,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first {
-            let touchLocation = touch.location(in: self)
-            print(touchLocation)
-            
-            let distance = distanceCalc(a: spaceShip.position, b: touchLocation)
-            let speed: CGFloat = 800
-            let time = timeTravelInterval(distance: distance, speed: speed)
-            
-            let moveAction = SKAction.move(to: touchLocation, duration: time)
-            moveAction.timingMode = SKActionTimingMode.easeInEaseOut
-            spaceShip.run(moveAction)
-            
-            let bgMoveAction = SKAction.move(to: CGPoint(x: -touchLocation.x/100, y: -touchLocation.y/100), duration: time)
-            background.run(bgMoveAction)
-            
-            self.asteroidLayer.isPaused = !self.asteroidLayer.isPaused
-            physicsWorld.speed = 0
+        if !gameIsPause {
+            if let touch = touches.first {
+                let touchLocation = touch.location(in: self)
+                print(touchLocation)
+                
+                let distance = distanceCalc(a: spaceShip.position, b: touchLocation)
+                let speed: CGFloat = 800
+                let time = timeTravelInterval(distance: distance, speed: speed)
+                
+                let moveAction = SKAction.move(to: touchLocation, duration: time)
+                moveAction.timingMode = SKActionTimingMode.easeInEaseOut
+                spaceShip.run(moveAction)
+                
+                let bgMoveAction = SKAction.move(to: CGPoint(x: -touchLocation.x/100, y: -touchLocation.y/100), duration: time)
+                background.run(bgMoveAction)
+                
+            }
         }
     }
     
@@ -124,8 +155,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func update(_ currentTime: TimeInterval) {
-//        let asteroid = createAsteroid()
-//        addChild(asteroid)
+        //        let asteroid = createAsteroid()
+        //        addChild(asteroid)
     }
     
     override func didSimulatePhysics() {
@@ -146,7 +177,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.scoreLabel.text = "Score: \(self.score)"
         }
     }
-
+    
     func didEnd(_ contact: SKPhysicsContact) {
         
     }
