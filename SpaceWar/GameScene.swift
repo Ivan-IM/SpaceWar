@@ -20,6 +20,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var asteroidLayer: SKNode!
     var gameIsPause: Bool = false
     
+    //MARK: pause
     func onPauseGame() {
         gameIsPause = true
         self.asteroidLayer.isPaused = true
@@ -55,10 +56,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
         physicsWorld.gravity = CGVector(dx: 0.0, dy: -2.8)
         
+        //MARK: Background
         background = SKSpriteNode(imageNamed: "space")
         background.size = CGSize(width: frame.size.width+50, height: frame.size.height+50)
         addChild(background)
         
+        //MARK: Spaceship
         spaceShip = SKSpriteNode(imageNamed: "spaceship")
         spaceShip.size = CGSize(width: 100, height: 100)
         spaceShip.position = CGPoint(x: 0, y: -500)
@@ -78,6 +81,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         addChild(spaceShip)
         
+        //MARK: Asteroid layer add
         asteroidLayer = SKNode()
         asteroidLayer.zPosition = 2
         addChild(asteroidLayer)
@@ -93,15 +97,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         self.asteroidLayer.run(asteroidCreateRepeat)
         
+        //MARK: Label
         scoreLabel = SKLabelNode(text: "Score: \(score)")
         scoreLabel.position = CGPoint(x: 0, y: (frame.size.height/2)-scoreLabel.frame.height-15)
         addChild(scoreLabel)
         
+        //MARK: Sequence add objects
         background.zPosition = 0
         spaceShip.zPosition = 1
         scoreLabel.zPosition = 3
     }
     
+    //MARK: Touch func
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if !gameIsPause {
             if let touch = touches.first {
@@ -123,6 +130,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    //MARK: Time interval
     func timeTravelInterval(distance: CGFloat, speed: CGFloat) -> TimeInterval {
         let time = distance/speed
         return TimeInterval(time)
@@ -132,6 +140,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         return sqrt((b.x - a.x)*(b.x - a.x) + (b.y - a.y)*(b.y - a.y))
     }
     
+    //MARK: Asteroid create func
     func createAsteroid() -> SKSpriteNode {
         let asteroid = SKSpriteNode(imageNamed: "asteroid")
         let asteroidSize = Double.random(in: 30...150)
@@ -159,6 +168,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //        addChild(asteroid)
     }
     
+    //MARK: Remove obj func
     override func didSimulatePhysics() {
         asteroidLayer.enumerateChildNodes(withName: "asteroid") { asteroid, stop in
             let hight = self.frame.size.height
@@ -171,6 +181,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    //MARK: Check contact func
     func didBegin(_ contact: SKPhysicsContact) {
         if contact.bodyA.categoryBitMask == spaceShipCategory && contact.bodyB.categoryBitMask == asteroidCategory || contact.bodyA.categoryBitMask == asteroidCategory && contact.bodyB.categoryBitMask == spaceShipCategory {
             self.score = 0
