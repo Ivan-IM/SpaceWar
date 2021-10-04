@@ -15,6 +15,9 @@
 		CFA948F727072F1800FD8C42 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFA948F527072F1800FD8C42 /* Main.storyboard */; };
 		CFA948F927072F1A00FD8C42 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFA948F827072F1A00FD8C42 /* Assets.xcassets */; };
 		CFA948FC27072F1A00FD8C42 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFA948FA27072F1A00FD8C42 /* LaunchScreen.storyboard */; };
+		CFB34BF62709D1C500A527EF /* Stars.sks in Resources */ = {isa = PBXBuildFile; fileRef = CFB34BF52709D1C500A527EF /* Stars.sks */; };
+		CFB34BF82709D74B00A527EF /* Fire.sks in Resources */ = {isa = PBXBuildFile; fileRef = CFB34BF72709D74B00A527EF /* Fire.sks */; };
+		CFB34BFA2709DAB000A527EF /* PauseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB34BF92709DAB000A527EF /* PauseViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +30,9 @@
 		CFA948F627072F1800FD8C42 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CFA948F827072F1A00FD8C42 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CFA948FB27072F1A00FD8C42 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		CFB34BF52709D1C500A527EF /* Stars.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Stars.sks; sourceTree = "<group>"; };
+		CFB34BF72709D74B00A527EF /* Fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Fire.sks; sourceTree = "<group>"; };
+		CFB34BF92709DAB000A527EF /* PauseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,8 +71,11 @@
 				CFA948F127072F1800FD8C42 /* GameScene.swift */,
 				CFA948F327072F1800FD8C42 /* GameViewController.swift */,
 				CFA948F527072F1800FD8C42 /* Main.storyboard */,
+				CFB34BF92709DAB000A527EF /* PauseViewController.swift */,
 				CFA948F827072F1A00FD8C42 /* Assets.xcassets */,
 				CFA948FA27072F1A00FD8C42 /* LaunchScreen.storyboard */,
+				CFB34BF52709D1C500A527EF /* Stars.sks */,
+				CFB34BF72709D74B00A527EF /* Fire.sks */,
 			);
 			path = SpaceWar;
 			sourceTree = "<group>";
@@ -129,11 +138,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFB34BF82709D74B00A527EF /* Fire.sks in Resources */,
 				CFA948F727072F1800FD8C42 /* Main.storyboard in Resources */,
 				CFA948EE27072F1800FD8C42 /* GameScene.sks in Resources */,
 				CFA948F927072F1A00FD8C42 /* Assets.xcassets in Resources */,
 				CFA948FC27072F1A00FD8C42 /* LaunchScreen.storyboard in Resources */,
 				CFA948F027072F1800FD8C42 /* Actions.sks in Resources */,
+				CFB34BF62709D1C500A527EF /* Stars.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,6 +156,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CFA948F227072F1800FD8C42 /* GameScene.swift in Sources */,
+				CFB34BFA2709DAB000A527EF /* PauseViewController.swift in Sources */,
 				CFA948F427072F1800FD8C42 /* GameViewController.swift in Sources */,
 				CFA948EC27072F1800FD8C42 /* AppDelegate.swift in Sources */,
 			);
